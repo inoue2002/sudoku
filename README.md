@@ -1,12 +1,141 @@
-# React + Vite
+# 数独ソルバー アプリケーション
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AC-3（アーク整合性）アルゴリズムとバックトラッキング探索を組み合わせた、インタラクティブな数独パズルソルバーです。
 
-Currently, two official plugins are available:
+## 機能
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎯 **高度な解法アルゴリズム**: AC-3アルゴリズムによる制約伝播とバックトラッキング探索
+- 🎮 **インタラクティブなUI**: 直感的な9×9グリッドで数字を入力
+- 📱 **レスポンシブデザイン**: モバイル・デスクトップ両対応
+- 🎨 **視覚的フィードバック**: 初期値と解答の色分け表示
+- ⚡ **高速処理**: Viteによる高速な開発環境
 
-## Expanding the ESLint configuration
+## デモ
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![Sudoku Solver Demo](https://via.placeholder.com/600x400?text=Sudoku+Solver+Demo)
+
+## 技術スタック
+
+- **フレームワーク**: React 19.1.0
+- **ビルドツール**: Vite 5.0.0
+- **言語**: JavaScript (ES6+)
+- **スタイリング**: CSS3
+- **リンター**: ESLint 9.30.1
+
+## インストール
+
+```bash
+# リポジトリのクローン
+git clone https://github.com/inoue2002/sudoku.git
+cd sudoku/sudoku-app
+
+# 依存関係のインストール
+npm install
+```
+
+## 使用方法
+
+### 開発サーバーの起動
+
+```bash
+npm run dev
+```
+
+ブラウザで `http://localhost:5173` にアクセスしてアプリケーションを開きます。
+
+### その他のコマンド
+
+```bash
+# プロダクションビルド
+npm run build
+
+# ビルドのプレビュー
+npm run preview
+
+# ESLintの実行
+npm run lint
+```
+
+## プロジェクト構造
+
+```
+sudoku-app/
+├── src/
+│   ├── components/          # Reactコンポーネント
+│   │   ├── SudokuBoard.jsx  # メインボードコンポーネント
+│   │   └── SudokuBoard.css  # ボードのスタイル
+│   ├── solver/              # 数独解法ロジック
+│   │   └── arcConsistency.js # AC-3アルゴリズム実装
+│   ├── App.jsx              # ルートコンポーネント
+│   ├── App.css              # アプリケーションスタイル
+│   └── main.jsx             # エントリーポイント
+├── public/                  # 静的アセット
+├── index.html               # HTMLテンプレート
+├── package.json             # プロジェクト設定
+├── vite.config.js           # Vite設定
+└── eslint.config.js         # ESLint設定
+```
+
+## アルゴリズムの詳細
+
+### AC-3 (Arc Consistency Algorithm)
+
+本アプリケーションは、制約充足問題（CSP）の解法として知られるAC-3アルゴリズムを実装しています。
+
+#### 主な特徴:
+- **ドメイン初期化**: 各セルに1-9の可能な値を設定
+- **制約伝播**: アーク整合性を用いた制約の伝播
+- **MRVヒューリスティック**: 最小残余値による変数選択
+- **バックトラッキング**: AC-3だけで解けない場合の探索
+
+### 実装の流れ
+
+1. **初期化**: 空のセルに1-9の全ての値を候補として設定
+2. **制約適用**: 既知の値に基づいて不可能な候補を削除
+3. **アーク整合性**: 全てのセルペア間で整合性をチェック
+4. **探索**: 必要に応じてバックトラッキングで解を探索
+
+## 使い方
+
+1. **数字の入力**: グリッドのセルをクリックして1-9の数字を入力
+2. **例題の読み込み**: 「例題を読み込む」ボタンでサンプル問題を表示
+3. **解く**: 「解く」ボタンでパズルを自動解答
+4. **リセット**: 「リセット」ボタンで初期状態に戻す
+5. **クリア**: 「クリア」ボタンで全てのセルを空にする
+
+## 機能の特徴
+
+- ✅ リアルタイム入力検証
+- ✅ 初期値と解答の視覚的区別
+- ✅ モバイル対応のタッチ操作
+- ✅ 解答状態のフィードバック表示
+- ✅ 高速な解答生成
+
+## 今後の改善案
+
+- [ ] TypeScriptへの移行
+- [ ] テストスイートの追加
+- [ ] パズル生成機能
+- [ ] 難易度設定
+- [ ] ヒント機能
+- [ ] 解答時間の記録
+- [ ] Web Workersによる非同期処理
+- [ ] PWA対応
+
+## 貢献
+
+プルリクエストを歓迎します！大きな変更の場合は、まずissueを開いて変更内容について議論してください。
+
+## ライセンス
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## 作者
+
+[@inoue2002](https://github.com/inoue2002)
+
+## 謝辞
+
+- Viteチームによる優れたビルドツール
+- Reactコミュニティ
+- 数独アルゴリズムの研究者たち
